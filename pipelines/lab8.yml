@@ -32,16 +32,3 @@ build:
   artifacts:
     paths:
       - dist/*
-
-deploy-staging:
-  stage: deploy
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-  script:
-    - pnpm dlx vercel deploy --cwd dist/ --token=$VERCEL_TOKEN
-
-deploy-prod:
-  when: manual
-  stage: deploy
-  script:
-    - pnpm dlx vercel deploy --prod --cwd dist/ --token=$VERCEL_TOKEN

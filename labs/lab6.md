@@ -2,9 +2,8 @@
 
 ## Objectif du TP
 
-- Continuous Delivery vs Continous Deployment
-- Monter extension Gitlab Workflow
-- Mettre en place du déploiement 
+- Se familiariser à la livraison continue
+- Déployer un projet sur une plateforme d'hébergements d'application web
 
 ## Pré-requis
 - Avoir mis à jour son repertoire par rapport au dépot d'origine (`git pull upstream main`)
