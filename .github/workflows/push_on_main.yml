@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - 'main'
+
+env:
+  BUILD_ARTIFACT_NAME: 'package'
+
 jobs:
   before_script:
     runs-on: ubuntu-latest
