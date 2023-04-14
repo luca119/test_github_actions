@@ -12,6 +12,7 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: latest
+          run_install: true
       - name: Checkout repository
         uses: actions/checkout@v3
         
@@ -24,9 +25,8 @@ jobs:
     needs: before_script
     steps:
       
-      - name: pnpm install, build
+      - name: pnpm build
         run: |
-          pnpm install
           pnpm build
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
