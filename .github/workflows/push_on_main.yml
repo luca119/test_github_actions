@@ -9,21 +9,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup pnpm
-        uses: pnpm/action-setup@v2.2.4
-        with:
-          version: V6.16
+        uses: pnpm/action-setup@v2
       - name: Checkout repository
         uses: actions/checkout@v3
         
       - name: Setup Node.js environment
-        uses: actions/setup-node@v2.5.2
-        with:
-          # Version Spec of the version to use.  Examples: 12.x, 10.15.1, >=10.15.0
-          node-version: 19.5
+        uses: actions/setup-node@v3
 
   build:
     runs-on: ubuntu-latest
     name: Build the package
+    needs: before_script
     steps:
       
       - name: pnpm install, build
