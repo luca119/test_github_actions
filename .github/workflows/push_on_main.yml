@@ -24,7 +24,7 @@ jobs:
       
       - name: pnpm install, build
         run: |
-          pnpm install
+          pnpm install --no-frozen-lockfile
           pnpm build
           
       - name: typechecking and linting
