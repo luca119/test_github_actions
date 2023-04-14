@@ -10,29 +10,35 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
           version: latest
-          run_install: true
+          
       - name: Setup Node.js environment
         uses: actions/setup-node@v3
         with:
+          node-version: 18
           cache: pnpm
-
-  build:
-    runs-on: ubuntu-latest
-    name: Build the package
-    needs: before_script
-    steps:
       
-      - name: pnpm build
+      - name: pnpm install, build
         run: |
+          pnpm install
           pnpm build
+          
+      - name: typechecking and linting
+        run: |
+          pnpm type-check
+          pnpm lint
+      - name: run unit tests
+        if: github.event_name == 'pull_request'
+        run: pnpm test
+          
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
         with:
-          path: |
-            dist
+          name: ${{env.BUILD_ARTIFACT_NAME}}
+          path: dist/
 
       
