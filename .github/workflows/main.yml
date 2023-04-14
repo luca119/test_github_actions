@@ -1,0 +1,31 @@
+name: 'commit on main'
+
+on:
+  push:
+    branches:
+      - 'main'
+#     paths-ignore:
+#       - README.md
+#       - CONTRIBUTING.md
+#   pull_request:
+#     branches:
+#       - '**'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Build the package
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: pnpm install, build
+        run: |
+          pnpm install
+          pnpm build
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+#           name: dist-without-markdown
+          path: |
+            dist
+
+      
