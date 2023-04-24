@@ -25,7 +25,7 @@ jobs:
         # Directory location of the application source code
         app_location: ${{github.workspace}}
         # Required token
-        azure_static_web_apps_api_token: 
+        azure_static_web_apps_api_token: b9a4f8911241628f74af8b44c72c0a74be1a7c2b629a8d1574f992b2e8828a752-6be5d1de-cda1-47db-a8f5-419c936a7727003206794
         # Skips the build step for the application source code if set to true.
         skip_app_build: true
         
@@ -50,7 +50,7 @@ jobs:
           # Directory location of the application source code
           app_location: ${{github.workspace}}
           # Required token
-          azure_static_web_apps_api_token: 
+          azure_static_web_apps_api_token: 4802f137ba53fd2b990ea40259c5dc34c06ec70664a01d4bdbf9312434ea46fd2-12d598f4-56a6-4313-8464-99e9ed25d872003219110
           # Skips the build step for the application source code if set to true.
           skip_app_build: true
 
