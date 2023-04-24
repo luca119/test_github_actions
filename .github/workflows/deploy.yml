@@ -13,7 +13,7 @@ jobs:
       uses: actions/download-artifact@v2.1.1
       with:
         # Artifact name
-        name: package
+        name: 'package'
         # Destination path
         path: ${{github.workspace}}
     
@@ -38,7 +38,7 @@ jobs:
         uses: actions/download-artifact@v2.1.1
         with:
           # Artifact name
-          name: package
+          name: 'package'
           # Destination path
           path: ${{github.workspace}}
 
