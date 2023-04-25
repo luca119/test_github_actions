@@ -13,6 +13,9 @@ jobs:
       id: download-artifact
       uses: dawidd6/action-download-artifact@v2
       with:
+        # Optional, workflow file name or ID
+        # If not specified, will be inferred from run_id (if run_id is specified), or will be the current workflow
+        workflow: push_on_main.yml
         # Optional, the status or conclusion of a completed workflow to search for
         # Can be one of a workflow conclusion:
         #   "failure", "success", "neutral", "cancelled", "skipped", "timed_out", "action_required"
@@ -29,7 +32,8 @@ jobs:
         # will download only those artifacts with a name that matches this regular expression
         # https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions
         name: 'package'
-
+        # Optional, search for the last workflow run whose stored an artifact named as in `name` input
+        # default false
         search_artifacts: true
     
     
