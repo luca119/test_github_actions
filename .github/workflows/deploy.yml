@@ -16,7 +16,7 @@ jobs:
         # Optional, GitHub token, a Personal Access Token with `public_repo` scope if needed
         # Required, if the artifact is from a different repo
         # Required, if the repo is private a Personal Access Token with `repo` scope is needed or GitHub token in a job where the permissions `action` scope set to `read`
-        github_token: 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
+        github_token: ${{secrets.MY_TOKEN}}
         # Optional, workflow file name or ID
         # If not specified, will be inferred from run_id (if run_id is specified), or will be the current workflow
         workflow: push_on_main.yml
@@ -58,13 +58,36 @@ jobs:
       name: Deploy to qa
       steps:
 
-      - name: Download a Build Artifact
-        uses: actions/download-artifact@v2.1.1
+      - name: Download artifact
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v2
         with:
-          # Artifact name
+          # Optional, GitHub token, a Personal Access Token with `public_repo` scope if needed
+          # Required, if the artifact is from a different repo
+          # Required, if the repo is private a Personal Access Token with `repo` scope is needed or GitHub token in a job where the permissions `action` scope set to `read`
+          github_token: ${{secrets.MY_TOKEN}}
+          # Optional, workflow file name or ID
+          # If not specified, will be inferred from run_id (if run_id is specified), or will be the current workflow
+          workflow: push_on_main.yml
+          # Optional, the status or conclusion of a completed workflow to search for
+          # Can be one of a workflow conclusion:
+          #   "failure", "success", "neutral", "cancelled", "skipped", "timed_out", "action_required"
+          # Or a workflow status:
+          #   "completed", "in_progress", "queued"
+          # Use the empty string ("") to ignore status or conclusion in the search
+          workflow_conclusion: success
+
+          # Optional, uploaded artifact name,
+          # will download all artifacts if not specified
+          # and extract them into respective subdirectories
+          # https://github.com/actions/download-artifact#download-all-artifacts
+          # is treated as a regular expression if input name_is_regexp is true
+          # will download only those artifacts with a name that matches this regular expression
+          # https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions
           name: 'package'
-          # Destination path
-          path: ${{github.workspace}}
+          # Optional, search for the last workflow run whose stored an artifact named as in `name` input
+          # default false
+          search_artifacts: true
 
       - name: Azure Static Web Apps Deploy
         uses: Azure/static-web-apps-deploy@v1
