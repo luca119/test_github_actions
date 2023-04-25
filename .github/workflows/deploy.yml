@@ -9,13 +9,29 @@ jobs:
     name: Deploy to prod
     steps:
     
-    - name: Download a Build Artifact
-      uses: actions/download-artifact@v2.1.1
+    - name: Download artifact
+      id: download-artifact
+      uses: dawidd6/action-download-artifact@v2
       with:
-        # Artifact name
+        # Optional, the status or conclusion of a completed workflow to search for
+        # Can be one of a workflow conclusion:
+        #   "failure", "success", "neutral", "cancelled", "skipped", "timed_out", "action_required"
+        # Or a workflow status:
+        #   "completed", "in_progress", "queued"
+        # Use the empty string ("") to ignore status or conclusion in the search
+        workflow_conclusion: success
+
+        # Optional, uploaded artifact name,
+        # will download all artifacts if not specified
+        # and extract them into respective subdirectories
+        # https://github.com/actions/download-artifact#download-all-artifacts
+        # is treated as a regular expression if input name_is_regexp is true
+        # will download only those artifacts with a name that matches this regular expression
+        # https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions
         name: 'package'
-        # Destination path
-        path: ${{github.workspace}}
+
+        search_artifacts: true
+    
     
     - name: Azure Static Web Apps Deploy
       uses: Azure/static-web-apps-deploy@v1
