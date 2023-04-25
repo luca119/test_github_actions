@@ -31,7 +31,7 @@ jobs:
         # is treated as a regular expression if input name_is_regexp is true
         # will download only those artifacts with a name that matches this regular expression
         # https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions
-        name: 'package'
+#         name: 'package'
         # Optional, search for the last workflow run whose stored an artifact named as in `name` input
         # default false
         search_artifacts: true
