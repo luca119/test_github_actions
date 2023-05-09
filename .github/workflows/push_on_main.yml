@@ -1,0 +1,54 @@
+name: 'commit on main'
+
+on:
+  push:
+    branches:
+      - 'main'
+
+env:
+  BUILD_ARTIFACT_NAME: 'package'
+
+jobs:
+  before_script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
+          
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: pnpm
+      
+      - name: pnpm install, build
+        run: |
+          pnpm install --no-frozen-lockfile
+          pnpm build
+          
+      - name: typechecking and linting
+        run: |
+          pnpm type-check
+          pnpm lint
+      - name: run unit tests
+        if: github.event_name == 'pull_request'
+        run: pnpm test
+          
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{env.BUILD_ARTIFACT_NAME}}
+          path: dist/
+          
+      - name: download and check artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: 'package'
+          path: ${{github.workspace}}
+
+      
