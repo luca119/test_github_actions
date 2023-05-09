@@ -1,0 +1,5 @@
+name: an-cb-vue-2048
+runtime: nodejs
+description: Code for the vue-2048 infrastructure
+config:
+  azure-native:location: WestEurope
