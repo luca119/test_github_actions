@@ -8,7 +8,8 @@
     "preview": "vite preview",
     "type-check": "vue-tsc --noEmit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "test": "vitest"
+    "test": "vitest",
+    "test-report": "vitest --reporter junit --outputFile ./report.xml"
   },
   "dependencies": {
     "@formkit/auto-animate": "^1.0.0-beta.1",

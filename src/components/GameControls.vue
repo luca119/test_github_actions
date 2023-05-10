@@ -1,17 +1,18 @@
 <script setup lang="ts">
 import { useGameStore } from '~/stores/game'
 
-const game = useGameStore()
+const props = defineProps<{score:number}>();
 
-const score = useTransition(computed(() => game.localGame.score), {
-  duration: 100,
-})
+const game = useGameStore()
 </script>
 
 <template>
   <div flex max-w="600px" w-full mx-auto>
     <div text-left self-end>
-      <div lt-md:text-7xl text-8xl font-black font-mono text-light-800 leading-18>
+      <div v-if="score < 128" class="lt-md:text-7xl text-8xl font-black font-mono text-light-800 leading-18" data-test="score">
+        {{ score.toFixed(0) }}
+      </div>
+      <div v-else class="lt-md:text-7xl text-8xl font-black font-mono text-orange-500 leading-18" data-test="score">
         {{ score.toFixed(0) }}
       </div>
       <div text-3xl font-mono op50>

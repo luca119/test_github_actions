@@ -1,0 +1,13 @@
+.on-manual-trigger:
+    rules:
+        - if: $CI_PIPELINE_SOURCE == "web"
+
+static-typing-job:
+    extends: .on-manual-trigger
+    script:
+        - pnpm type-check
+
+lint-job:
+    extends: .on-manual-trigger
+    script:
+        - pnpm lint
