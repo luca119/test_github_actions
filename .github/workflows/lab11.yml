@@ -10,6 +10,39 @@ env:
   BUILD_ARTIFACT_NAME: "package"
 
 jobs:
+  deploy-infra:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
+        
+      - name: Set node version to 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'pnpm'
+        
+      - name: Install dependencies
+        run: pnpm install
+        working-directory: infra
+        
+      - name: Provision infrastructure
+        uses: pulumi/actions@v4.2.1
+        with:
+          command: up
+          stack-name: ei8it213/slt-vue-2048/dev
+          work-dir: infra
+        env:
+          PULUMI_ACCESS_TOKEN: $(( secrets.PULUMI_ACCESS_TOKEN ))
+          ARM_CLIENT_ID: $(( secrets.ARM_CLIENT_ID ))
+          ARM_CLIENT_SECRET: $(( secrets.ARM_CLIENT_SECRET ))
+          ARM_TENANT_ID: $(( secrets.ARM_TENANT_ID ))
+          ARM_SUBSCRIPTION_ID: $(( secrets.ARM_SUBSCRIPTION_ID ))
+          
   build:
     runs-on: ubuntu-latest
     steps:
